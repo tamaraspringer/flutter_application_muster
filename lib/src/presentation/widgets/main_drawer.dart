@@ -8,14 +8,16 @@ class MainDrawer extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        size: 26,
+        size: 22,
+        color: Colors.grey,
       ),
       title: Text(
         title,
         style: TextStyle(
+          color: Colors.indigo[700],
           fontFamily: 'RobotoCondensed',
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
         ),
       ),
       onTap: tapHandler,
@@ -27,13 +29,21 @@ class MainDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: <Widget>[
+          DrawerHeader(
+            curve: Curves.linear,
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
+            child: Container(
+              decoration: BoxDecoration(color: Colors.indigo[200]),
+            ),
+          ),
           SizedBox(
-            height: 50,
+            height: 20,
           ),
           buildListTile('Home Page', Icons.home, () {
             Navigator.of(context).pushReplacementNamed(HomePage.routeName);
           }),
-          buildListTile('Users List', Icons.home, () {
+          buildListTile('Users List', Icons.list_alt, () {
             Navigator.of(context).pushReplacementNamed(UsersList.routeName);
           }),
         ],

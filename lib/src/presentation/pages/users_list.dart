@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_muster/src/data-domain/models/user.dart';
 import 'package:flutter_application_muster/src/data-domain/service/get_user.dart';
+import 'package:flutter_application_muster/src/presentation/widgets/main_drawer.dart';
 
 class UsersList extends StatefulWidget {
   static const routeName = '/users-list';
@@ -8,12 +10,18 @@ class UsersList extends StatefulWidget {
 }
 
 class UsersListState extends State<UsersList> {
+  List<UserModel> data = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Muster App"),
+        title: Text(
+          "Muster App",
+          style: TextStyle(fontSize: 23),
+        ),
       ),
+      drawer: MainDrawer(),
       body: Container(
         child: Card(
           child: FutureBuilder(
@@ -22,7 +30,8 @@ class UsersListState extends State<UsersList> {
               if (snapshot.data == null) {
                 return Container(
                   child: Center(
-                    child: Text("Loading...", style: TextStyle(fontSize: 25.0)),
+                    child: Text("Loading...",
+                        style: TextStyle(fontSize: 23.0, color: Colors.grey)),
                   ),
                 );
               } else
@@ -30,7 +39,7 @@ class UsersListState extends State<UsersList> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
-                          color: Colors.green[50],
+                          color: Colors.blue[50],
                           shape: RoundedRectangleBorder(
                             side: BorderSide(color: Colors.black38, width: 1),
                             borderRadius: BorderRadius.circular(10),
@@ -38,7 +47,7 @@ class UsersListState extends State<UsersList> {
                           margin: EdgeInsets.all(5.0),
                           child: ListTile(
                             leading: CircleAvatar(
-                                backgroundColor: Colors.green[300],
+                                backgroundColor: Colors.blue[300],
                                 child: Text(snapshot.data[index].id.toString(),
                                     style: TextStyle(
                                         color: Colors.black,
@@ -48,16 +57,16 @@ class UsersListState extends State<UsersList> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18.0)),
-                            subtitle: Text(snapshot.data[index].deviceType,
+                            subtitle: Text(snapshot.data[index].email,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     fontSize: 18.0,
                                     fontStyle: FontStyle.italic)),
-                            trailing: Text(snapshot.data[index].currency,
+                            /*trailing: Text(snapshot.data[index].currency,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18.0)),
-                            /*onTap: () {
+                            onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
